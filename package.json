@@ -1,0 +1,27 @@
+{
+  "name": "midijoy",
+  "version": "0.1.0",
+  "description": "Mapping of midi controllers to vJoy virtual joystick",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BogdanDenis/midiJoy.git"
+  },
+  "keywords": [
+    "midi",
+    "vjoy",
+    "virtual",
+    "joystick",
+    "mapping"
+  ],
+  "author": "Denys Bohdan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BogdanDenis/midiJoy/issues"
+  },
+  "homepage": "https://github.com/BogdanDenis/midiJoy#readme"
+}
