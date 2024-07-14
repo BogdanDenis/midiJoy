@@ -1,12 +1,9 @@
 {
   "name": "midijoy",
+  "productName": "midijoy",
   "version": "0.1.0",
   "description": "Mapping of midi controllers to vJoy virtual joystick",
-  "main": "index.js",
-  "type": "module",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "main": ".webpack/main",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/BogdanDenis/midiJoy.git"
@@ -23,5 +20,39 @@
   "bugs": {
     "url": "https://github.com/BogdanDenis/midiJoy/issues"
   },
-  "homepage": "https://github.com/BogdanDenis/midiJoy#readme"
+  "homepage": "https://github.com/BogdanDenis/midiJoy#readme",
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "echo \"No linting configured\""
+  },
+  "devDependencies": {
+    "@babel/core": "^7.24.8",
+    "@babel/preset-react": "^7.24.7",
+    "@electron-forge/cli": "^7.4.0",
+    "@electron-forge/maker-deb": "^7.4.0",
+    "@electron-forge/maker-rpm": "^7.4.0",
+    "@electron-forge/maker-squirrel": "^7.4.0",
+    "@electron-forge/maker-zip": "^7.4.0",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.4.0",
+    "@electron-forge/plugin-fuses": "^7.4.0",
+    "@electron-forge/plugin-webpack": "^7.4.0",
+    "@electron/fuses": "^1.8.0",
+    "@vercel/webpack-asset-relocator-loader": "1.7.3",
+    "babel-loader": "^9.1.3",
+    "copy-webpack-plugin": "^12.0.2",
+    "css-loader": "^6.11.0",
+    "electron": "31.2.0",
+    "node-loader": "^2.0.0",
+    "style-loader": "^3.3.4"
+  },
+  "dependencies": {
+    "@julusian/midi": "~3.4.0",
+    "electron-squirrel-startup": "^1.0.1",
+    "ffi-rs": "^1.0.86",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
 }
