@@ -1,7 +1,9 @@
-const { ipcMain } = require('electron')
 import { DataType, open, define } from 'ffi-rs';
 
-import { VJOY_EVENTS } from './events';
+const { initialize: initializeAppData } = require('../appdata/appdata');
+const { EventBus } = require('../../eventbus');
+import { MIDI_EVENTS } from '../midi/events';
+const { VJOY_AXIS } = require('./constants');
 
 open({
   library: 'vJoy',
@@ -36,12 +38,51 @@ const vJoy = define({
   },
 });
 
-const initialize = () => {
-  ipcMain.handle(VJOY_EVENTS.ACQUIRE_VJD, (event, vjd) => vJoy.AcquireVJD([vjd]));
-  ipcMain.handle(VJOY_EVENTS.GET_VJD_STATUS, (event, vjd) => vJoy.GetVJDStatus([vjd]));
-  ipcMain.handle(VJOY_EVENTS.RESET_VJD, (event, vjd) => vJoy.ResetVJD([vjd]));
-  ipcMain.handle(VJOY_EVENTS.SET_AXIS, (event, value, vjd, axis) => vJoy.SetAxis([value, vjd, axis]));
-  ipcMain.handle(VJOY_EVENTS.RELINQUISH_VJD, (event, vjd) => vJoy.RELINQUISH_VJD([vjd]));
+const appData = initializeAppData();
+const eventBus = EventBus.getInstance();
+
+const getVJDs = (config) => {
+  return [...new Set(config
+    .reduce((acc, cur) => [...acc, cur.vjdId], []))];
+};
+
+const initialize = async () => {
+  console.log('Acquiring specified vJoy devices...');
+
+  const { mappings } = await appData.readData();
+
+  try {
+    getVJDs(mappings).forEach((vjd) => {
+      const success = Boolean(vJoy.AcquireVJD([vjd])) && !Boolean(vJoy.GetVJDStatus([vjd]));
+
+      if (success) {
+        vJoy.ResetVJD([vjd]);
+        console.log(`vJoy device ${vjd} acquired.`);
+      } else {
+        console.warn(`Failed to acquire vJoy device ${vjd}.`);
+      }
+    });
+  } catch (e) {
+    console.error(e);
+  }
+
+  eventBus.on(MIDI_EVENTS.MESSAGE_RECEIVED, (message) => {
+    const { value, keyType, keyId } = message;
+
+    const configEntry = mappings.find(config => config.keyType === keyType && config.keyId === keyId);
+
+    if (!configEntry) {
+      return;
+    }
+
+    const valueLONG = (value + 1) << 8;
+
+    try {
+      vJoy.SetAxis([valueLONG, configEntry.vjdId, VJOY_AXIS[configEntry.vjdKey]]);
+    } catch (e) {
+      console.error(e);
+    }
+  });
 };
 
 export { initialize };

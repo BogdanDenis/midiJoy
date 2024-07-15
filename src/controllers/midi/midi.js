@@ -1,6 +1,7 @@
 const { ipcMain } = require('electron')
 const midi = require('@julusian/midi');
 
+const { EventBus } = require('../../eventbus');
 import { MIDI_EVENTS } from './events';
 
 const input = new midi.Input();
@@ -14,6 +15,8 @@ const getMidiPorts = () => {
       name: input.getPortName(index),
     }));
 };
+
+const eventBus = EventBus.getInstance();
 
 const messages = [];
 
@@ -34,6 +37,7 @@ const handleMIDIMessage = (deltaTime, message, mainWindow) => {
   messages.push(_message);
 
   mainWindow.webContents.send(MIDI_EVENTS.MESSAGE_RECEIVED, _message);
+  eventBus.emit(MIDI_EVENTS.MESSAGE_RECEIVED, null, _message);
 };
 
 const openPort = (portId, mainWindow) => {

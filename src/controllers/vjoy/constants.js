@@ -1,6 +1,4 @@
-const { contextBridge } = require('electron');
-
-const axis = {
+export const VJOY_AXIS = {
   'X': 0x30,
   'Y': 0x31,
   'Z': 0x32,
@@ -12,7 +10,3 @@ const axis = {
   'WHL': 0x38,
   'POV': 0x39,
 };
-
-contextBridge.exposeInMainWorld('constants', {
-  axis,
-});
