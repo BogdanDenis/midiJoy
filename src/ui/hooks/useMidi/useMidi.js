@@ -1,4 +1,9 @@
-import { useEffect, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
 export const useMidi = () => {
   const [ports, setPorts] = useState([]);
@@ -13,7 +18,13 @@ export const useMidi = () => {
     getPorts();
   }, []);
 
+  const openPort = useCallback((portId) => {
+    return window.midi.openPort(portId);
+  }, []);
+
   return {
     ports,
+    openPort,
+    onMIDIMessage: window.midi.onMIDIMessage,
   };
 };
