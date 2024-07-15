@@ -12,7 +12,7 @@ export const Midi = () => {
   return (
     <>
       {ports.map(port => ((
-        <button onClick={() => { console.log('click'); redirectTo(`/${port.id}`);}}>Link to {port.name}</button>
+        <button onClick={() => redirectTo(`/${port.id}`)}>Link to {port.name}</button>
       )))}
     </>
   );

@@ -2,8 +2,6 @@ const { contextBridge, ipcRenderer } = require('electron');
 
 const { MIDI_EVENTS } = require('../../controllers/midi/events');
 
-const handleMIDIMessage = (_event, value) => callback(value);
-
 contextBridge.exposeInMainWorld('midi', {
   getPorts: () => ipcRenderer.invoke(MIDI_EVENTS.GET_PORTS),
   openPort: (portId) => ipcRenderer.invoke(MIDI_EVENTS.OPEN_PORT, portId),

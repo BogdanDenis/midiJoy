@@ -1,15 +1,5 @@
 const { contextBridge } = require('electron');
 
-const MAPPING_CONFIG = [
-  {
-    midiId: 1,
-    keyType: 176,
-    keyId: 21,
-    vjd: 1,
-    vjdKey: 'X',
-  },
-];
-
 const axis = {
   'X': 0x30,
   'Y': 0x31,
@@ -25,5 +15,4 @@ const axis = {
 
 contextBridge.exposeInMainWorld('constants', {
   axis,
-  MAPPING_CONFIG,
 });

@@ -2,6 +2,8 @@ const { app, BrowserWindow } = require('electron');
 
 const { initialize: initializeVJoy } = require('./controllers/vjoy/vjoy');
 const { initialize: initializeMidi } = require('./controllers/midi/midi');
+const { initialize: initializeMappings } = require('./controllers/mappings/mappings');
+const { initialize: initializeAppData } = require('./controllers/appdata/appdata');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -30,8 +32,10 @@ const createWindow = () => {
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   const mainWindow = createWindow();
+  initializeAppData();
   initializeVJoy();
   initializeMidi(mainWindow);
+  initializeMappings();
 
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
