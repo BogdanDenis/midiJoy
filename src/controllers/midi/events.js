@@ -3,4 +3,5 @@ export const MIDI_EVENTS = {
   OPEN_PORT: 'midi:OpenPort',
   CLOSE_PORT: 'midi:ClosePort',
   MESSAGE_RECEIVED: 'midi:MessageReceived',
+  PORT_DISCONNECTED: 'midi:PortDisconnected',
 };
