@@ -1,7 +1,43 @@
+@font-face {
+  font-family: 'Bauhaus Regular';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Bauhaus Regular'), url('../static/fonts/BauhausRegular.woff') format('woff');
+}
+  
+
+@font-face {
+  font-family: 'Bauhaus Italic';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Bauhaus Italic'), url('../static/fonts/BauhausItalic.woff') format('woff');
+}
+
+
+@font-face {
+  font-family: 'Bauhaus Bold';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Bauhaus Bold'), url('../static/fonts/BauhausBold.woff') format('woff');
+}
+
+
+@font-face {
+  font-family: 'Bauhaus Bold Italic';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Bauhaus Bold Italic'), url('../static/fonts/BauhausBoldItalic.woff') format('woff');
+}
+
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+  font-family: 'Bauhaus Regular', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
     Arial, sans-serif;
-  margin: auto;
-  max-width: 38rem;
+  margin: 0;
   padding: 2rem;
+
+  background-color: #EDEDED;
+}
+
+* {
+  font-family: 'Bauhaus Regular';
 }

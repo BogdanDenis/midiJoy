@@ -3,6 +3,8 @@ import React from 'react';
 import { Config, Midi } from './pages';
 import { useRoute } from './hooks';
 
+import css from './App.css';
+
 /*
 
 What does user need to be able to do:
@@ -23,12 +25,12 @@ const App = () => {
   const { currentRoute } = useRoute();
 
   return (
-    <>
+    <div className={css.appContainer}>
       <Midi />
       {currentRoute.match(/\/.+/) && (
         <Config />
       )}
-    </>
+    </div>
   );
 }
 

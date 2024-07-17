@@ -1,0 +1,65 @@
+.midiDevicesListContainer {
+  height: auto;
+  min-width: 400px;
+
+  margin: 0 80px 0 0;
+}
+
+.midiDeviceContainer {
+  position: relative;
+  width: 100%;
+  margin: 60px 0;
+
+  &::before {
+    content: '';
+
+    position: absolute;
+    top: 100%;
+    left: 7px; /* skew makes it apper a little to the left, so need to compensate */
+    width: 100%;
+    height: 12px;
+    background-color: #be1e2d;
+    transform: skew(45deg);
+  }
+
+  &::after {
+    content: '';
+
+    position: absolute;
+    top: 12px; /* skew makes it apper a little to the top, so need to compensate */
+    left: 100%; 
+    width: 12px;
+    height: 100%;
+    background-color: #be1e2d;
+    transform: translate(1px, -6px)scale(0.74, 5.8) skew(0deg) rotateY(103deg) rotateX(0deg) rotateZ(88.5deg); /* this is a mess. is there a better way of making that 3d border effect? */
+  }
+
+  &.midiDeviceActive {
+
+    .midiDeviceButton {
+      transform: translate(12px, 0px);
+    }
+
+
+    &::before {
+      transform: scale(1.001, 1) perspective(34px) rotateX(1deg);
+      left: 12px;
+    }
+
+    &::after {
+      display: none;
+    }
+  }
+}
+
+
+
+.midiDeviceButton {
+  background: none;
+  border: none;
+  width: 100%;
+  font-size: 24px;
+  padding: 20px 0;
+
+  /*box-shadow: 8px 8px 0px 3px #be1e2d; */
+}

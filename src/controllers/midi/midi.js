@@ -63,10 +63,10 @@ const listenToPortsDisconnect = () => {
 
     disconnectedPortNames = lodash.uniq(lodash.concat(disconnectedPortNames, _disconnectedPortNames));
 
-    console.log(`Disconnected ports: ${disconnectedPortNames}`);
-
     const portsToRemoveFromDisconnectedList = [];
     if (disconnectedPortNames.length) {
+      console.log(`Disconnected ports: ${disconnectedPortNames}`);
+
       disconnectedPortNames.forEach((portName, index) => {
         console.log(`Attempting to reconnect ${portName}...`);
 

@@ -4,8 +4,9 @@ import {
   useMidi,
   useRoute,
 } from '../../hooks';
-import { Mapping } from './components';
 import { MappingsForm } from './components/mapping/mappings-form';
+
+import css from './config.css';
 
 export const Config = () => {
   const { getParts } = useRoute();
@@ -21,8 +22,8 @@ export const Config = () => {
   }
 
   return (
-    <div>
-      <span>Current midi device: ${currentMidiPort.name}</span>
+    <div className={css.configContainer}>
+      <h2 className={css.configDeviceName}>{currentMidiPort.name}</h2>
       <button onClick={() => openPort(currentMidiPort.id)}>Open port</button>
       <MappingsForm mappings={mappings} />
     </div>

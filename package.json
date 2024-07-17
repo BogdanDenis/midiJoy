@@ -50,6 +50,7 @@
   },
   "dependencies": {
     "@julusian/midi": "~3.4.0",
+    "classnames": "^2.5.1",
     "electron-squirrel-startup": "^1.0.1",
     "ffi-rs": "^1.0.86",
     "formik": "^2.4.6",
