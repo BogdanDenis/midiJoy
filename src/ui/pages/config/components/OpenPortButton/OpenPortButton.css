@@ -1,0 +1,9 @@
+.configOpenPortButtonContainer {
+  width: 100px;
+  margin-bottom: 40px;
+}
+
+.configOpenPortButton {
+  font-size: 16px;
+  padding: 10px 0;
+}

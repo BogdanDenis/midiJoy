@@ -2,7 +2,6 @@
 .buttonContainer {
   position: relative;
   width: 100%;
-  margin: 60px 0;
 
   &.active {
     .button {
@@ -16,6 +15,6 @@
   border: none;
   box-shadow: 4px 4px 4px -1px rgba(66, 68, 90, 1);
   width: 100%;
-  font-size: 24px;
-  padding: 20px 0;
+  font-size: 12px;
+  padding: 10px;
 }

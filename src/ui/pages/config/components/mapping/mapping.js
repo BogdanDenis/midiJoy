@@ -1,12 +1,5 @@
 import React from 'react';
 
-import { MappingForm } from './mapping-form';
-import { MappingView } from './mapping-view';
+import { MappingsForm } from './mappings-form';
 
-export const Mapping = ({ mapping }) => {
-  const isEditing = false;
-
-  return isEditing
-    ? <MappingForm mapping={mapping} />
-    : <MappingView mapping={mapping} />;
-};
+export const Mapping = ({ mapping }) => <MappingsForm mapping={mapping} />;

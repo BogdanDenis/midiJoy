@@ -4,14 +4,15 @@ import {
   useMidi,
   useRoute,
 } from '../../hooks';
-import { MappingsForm } from './components/mapping/mappings-form';
-import { Button } from '../../components';
+import { MappingsForm } from './components/Mapping/mappings-form';
+import { OpenPortButton } from './components';
+
 
 import css from './config.css';
 
 export const Config = () => {
   const { getParts } = useRoute();
-  const { ports, openPort } = useMidi();
+  const { ports } = useMidi();
   const { mappings } = useMappings();
 
   const currentMidiId = parseInt(getParts()[0], 10);
@@ -25,13 +26,7 @@ export const Config = () => {
   return (
     <div className={css.configContainer}>
       <h2 className={css.configDeviceName}>{currentMidiPort.name}</h2>
-      <Button
-        containerClass={css.configOpenPortButtonContainer}
-        buttonClass={css.configOpenPortButton}
-        onClick={() => openPort(currentMidiPort.id)}
-      >
-        Open port
-      </Button>
+      <OpenPortButton currentMidiPort={currentMidiPort} />
       <MappingsForm mappings={mappings} />
     </div>
   );

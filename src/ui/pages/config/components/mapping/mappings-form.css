@@ -1,0 +1,29 @@
+.mappingsFormContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.mappingsFormFieldsContainer {
+  width: calc(50% - 40px);
+  margin-bottom: 30px;
+  padding: 10px;
+  
+  margin: 0 0px 30px;
+  box-shadow: 4px 4px 4px -1px rgba(66, 68, 90, 1);
+}
+
+.vjdIdFieldContainer,
+.vjdKeyFieldContainer {
+  display: inline-block;
+}
+
+.vjdKeyFieldContainer {
+  margin-left: 40px;
+}
+
+.saveConfigButtonContainer,
+.addConfigButtonContainer {
+  max-width: 250px;
+}
