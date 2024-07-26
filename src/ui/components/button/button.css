@@ -4,57 +4,18 @@
   width: 100%;
   margin: 60px 0;
 
-  &::before {
-    content: '';
-
-    position: absolute;
-    top: 100%;
-    left: 7px; /* skew makes it apper a little to the left, so need to compensate */
-    width: 100%;
-    height: 17.6470588%;
-    background-color: #be1e2d;
-    transform: skew(45deg);
-  }
-
-  &::after {
-    content: '';
-
-    position: absolute;
-    top: 12px; /* skew makes it apper a little to the top, so need to compensate */
-    left: 100%; 
-    width: 12px;
-    height: 100%;
-    background-color: #be1e2d;
-    transform: translate(1px, -6px) scale(0.74, 3.2) skew(0deg) rotateY(103deg) rotateX(0deg) rotateZ(88.5deg); /* this is a mess. is there a better way of making that 3d border effect? */
-    /* transform: scale(1.001, 10) perspective(820px) rotateX(0deg) rotateY(272deg); */
-  }
-
   &.active {
-
-    .midiDeviceButton {
-      transform: translate(12px, 0px);
-    }
-
-
-    &::before {
-      transform: scale(1.001, 1) perspective(34px) rotateX(1deg);
-      left: 12px;
-    }
-
-    &::after {
-      display: none;
+    .button {
+      color: #be1e2d;
     }
   }
 }
 
-
-
 .button {
   background: none;
   border: none;
+  box-shadow: 4px 4px 4px -1px rgba(66, 68, 90, 1);
   width: 100%;
   font-size: 24px;
   padding: 20px 0;
-
-  /*box-shadow: 8px 8px 0px 3px #be1e2d; */
 }
