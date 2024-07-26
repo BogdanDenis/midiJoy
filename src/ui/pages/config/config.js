@@ -5,6 +5,7 @@ import {
   useRoute,
 } from '../../hooks';
 import { MappingsForm } from './components/mapping/mappings-form';
+import { Button } from '../../components';
 
 import css from './config.css';
 
@@ -24,7 +25,13 @@ export const Config = () => {
   return (
     <div className={css.configContainer}>
       <h2 className={css.configDeviceName}>{currentMidiPort.name}</h2>
-      <button onClick={() => openPort(currentMidiPort.id)}>Open port</button>
+      <Button
+        containerClass={css.configOpenPortButtonContainer}
+        buttonClass={css.configOpenPortButton}
+        onClick={() => openPort(currentMidiPort.id)}
+      >
+        Open port
+      </Button>
       <MappingsForm mappings={mappings} />
     </div>
   );

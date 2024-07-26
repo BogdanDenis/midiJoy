@@ -5,6 +5,7 @@ import {
   useMidi,
   useRoute,
 } from '../../hooks';
+import { Button } from '../../components';
 
 import css from './midi.css';
 
@@ -17,17 +18,12 @@ export const Midi = () => {
   return (
     <div className={css.midiDevicesListContainer}>
       {ports.map(port => ((
-        <div className={classnames([
-          css.midiDeviceContainer,
-          { [css.midiDeviceActive]: currentMidiId === port.id }
-        ])}>
-          <button
-            className={css.midiDeviceButton}
-            onClick={() => redirectTo(`/${port.id}`)}
-          >
-            {port.name}
-          </button>
-        </div>
+        <Button
+          isActive={currentMidiId === port.id}
+          onClick={() => redirectTo(`/${port.id}`)}
+        >
+          {port.name}
+        </Button>
       )))}
     </div>
   );

@@ -1,5 +1,14 @@
 .configContainer {
   padding: 40px 0;
+
+  .configOpenPortButtonContainer {
+    width: 100px;
+  }
+
+  .configOpenPortButton {
+    font-size: 16px;
+    padding: 10px 0;
+  }
 }
 
 .configDeviceName {
