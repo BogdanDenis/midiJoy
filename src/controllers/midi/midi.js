@@ -49,48 +49,58 @@ const handleMIDIMessage = (deltaTime, message) => {
   eventBus.emit(MIDI_EVENTS.MESSAGE_RECEIVED, null, _message);
 };
 
-const LISTEN_TO_PORTS_DISCONNECT_INTERVAL = 500;
+const CHECK_PORTS_INTERVAL = 500;
 
-const listenToPortsDisconnect = () => {
+const keepCheckingAvailablePorts = () => {
+  let lastExistingPorts = [];
+
   setInterval(() => {
-    if (!openedPorts.length) {
-      return;
-    }
-
     const existingPorts = getMidiPorts();
 
-    const _disconnectedPortNames = openedPorts.filter(portName => !existingPorts.find(port => port.name === portName));
+    const difference = lodash.differenceWith(existingPorts, lastExistingPorts, (a, b) => a.name === b.name);
 
-    disconnectedPortNames = lodash.uniq(lodash.concat(disconnectedPortNames, _disconnectedPortNames));
-
-    const portsToRemoveFromDisconnectedList = [];
-    if (disconnectedPortNames.length) {
-      console.log(`Disconnected ports: ${disconnectedPortNames}`);
-
-      disconnectedPortNames.forEach((portName, index) => {
-        console.log(`Attempting to reconnect ${portName}...`);
-
-        const portIdToReconnect = getPortIdByName(portName);
-
-        if (!portIdToReconnect) {
-          return;
-        }
-
-        // only disconnect if the port has re-connected and now has an id
-        closePort(portName);
-
-        try {
-          openPort(portIdToReconnect, _mainWindow);
-          console.log(`Port ${portName} has reconnected.`);
-          portsToRemoveFromDisconnectedList.push(portName);
-        } catch (e) {
-          console.error(e);
-        }
-      });
-
-      disconnectedPortNames = lodash.pullAll(disconnectedPortNames, portsToRemoveFromDisconnectedList);
+    if (difference.length) {
+      handleAvailableMidiPortsChanged(existingPorts);
     }
-  }, LISTEN_TO_PORTS_DISCONNECT_INTERVAL);
+
+    lastExistingPorts = existingPorts;
+
+    _mainWindow.webContents.send(MIDI_EVENTS.GET_PORTS, existingPorts);
+  }, CHECK_PORTS_INTERVAL);
+}
+
+const handleAvailableMidiPortsChanged = (existingPorts) => {
+  const _disconnectedPortNames = openedPorts.filter(portName => !existingPorts.find(port => port.name === portName));
+
+  disconnectedPortNames = lodash.uniq(lodash.concat(disconnectedPortNames, _disconnectedPortNames));
+
+  const portsToRemoveFromDisconnectedList = [];
+  if (disconnectedPortNames.length) {
+    console.log(`Disconnected ports: ${disconnectedPortNames}`);
+
+    disconnectedPortNames.forEach((portName, index) => {
+      console.log(`Attempting to reconnect ${portName}...`);
+
+      const portIdToReconnect = getPortIdByName(portName);
+
+      if (!portIdToReconnect) {
+        return;
+      }
+
+      // only disconnect if the port has re-connected and now has an id
+      closePort(portName);
+
+      try {
+        openPort(portIdToReconnect, _mainWindow);
+        console.log(`Port ${portName} has reconnected.`);
+        portsToRemoveFromDisconnectedList.push(portName);
+      } catch (e) {
+        console.error(e);
+      }
+    });
+
+    disconnectedPortNames = lodash.pullAll(disconnectedPortNames, portsToRemoveFromDisconnectedList);
+  }
 }
 
 const openPort = (portId) => {
@@ -132,11 +142,10 @@ const initialize = (mainWindow) => {
   // keep reference to main window for if we need to re-connect ports
   _mainWindow = mainWindow;
 
-  ipcMain.handle(MIDI_EVENTS.GET_PORTS, () => getMidiPorts());
   ipcMain.handle(MIDI_EVENTS.OPEN_PORT, (_event, portId) => openPort(portId));
   ipcMain.handle(MIDI_EVENTS.CLOSE_PORT, () => closePort());
 
-  listenToPortsDisconnect();
+  keepCheckingAvailablePorts();
 };
 
 export { initialize };

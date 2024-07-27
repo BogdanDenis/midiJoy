@@ -9,13 +9,9 @@ export const useMidi = () => {
   const [ports, setPorts] = useState([]);
 
   useEffect(() => {
-    const getPorts = async () => {
-      const _ports = await window.midi.getPorts();
-
+    return window.midi.getPorts((_ports) => {
       setPorts(_ports);
-    };
-
-    getPorts();
+    });
   }, []);
 
   const openPort = useCallback((portId) => {
