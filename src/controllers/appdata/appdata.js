@@ -6,8 +6,17 @@ let appData = null;
 class AppData {
   constructor() {
     this.dataPath = path.join(process.env.APPDATA, "\\midiJoy\\data.dat");
+    this.valuesState = {};
     this.createDataFileIfNotExists();
-  } 
+  }
+
+  updateState(key, value) {
+    this.valuesState[key] = value;
+  }
+
+  getState(key) {
+    return this.valuesState[key];
+  }
 
   createDataFileIfNotExists = () => {
     if (fs.existsSync(this.dataPath)) {

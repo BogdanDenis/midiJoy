@@ -89,16 +89,16 @@ const main = async () => {
   
   console.log('Acquiring specified vJoy devices...');
 
-  getVJDs(MAPPING_CONFIG).forEach((vjd) => {
-    const success = Boolean(vJoy.AcquireVJD(vjd)) && !Boolean(vJoy.GetVJDStatus(vjd));
+  // getVJDs(MAPPING_CONFIG).forEach((vjd) => {
+  //   const success = Boolean(vJoy.AcquireVJD(vjd)) && !Boolean(vJoy.GetVJDStatus(vjd));
 
-    if (success) {
-      vJoy.ResetVJD(vjd);
-      console.log(`vJoy device ${vjd} acquired.`);
-    } else {
-      console.warn(`Failed to acquire vJoy device ${vjd}.`);
-    }
-  });
+  //   if (success) {
+  //     vJoy.ResetVJD(vjd);
+  //     console.log(`vJoy device ${vjd} acquired.`);
+  //   } else {
+  //     console.warn(`Failed to acquire vJoy device ${vjd}.`);
+  //   }
+  // });
 
   const handleMIDIMessage = (deltaTime, message) => {
     // The message is an array of numbers corresponding to the MIDI bytes:
@@ -108,7 +108,7 @@ const main = async () => {
     console.log(`m: ${message} d: ${deltaTime}`);
     const [keyType, keyId, value] = message;
   
-    const valueLONG = (value + 1) << 8;
+    const valueLONG = (value) << 8;
 
     const configEntry = MAPPING_CONFIG.find(config => config.keyType === keyType && keyId === keyId);
 
